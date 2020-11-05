@@ -11,6 +11,7 @@
         app:elevation="0dp" />
 
     <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
@@ -37,8 +38,8 @@
             android:layout_height="?attr/actionBarSize"
             android:layout_below="@+id/vStatusBarView">
 
-            <com.mokucloud.ren.ui.widgets.HomeHeadView
-                android:id="@+id/toolbar"
+            <com.univers.taptapdemo.widgets.view.HomeHeadView
+                android:id="@+id/homeHeadView"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 />

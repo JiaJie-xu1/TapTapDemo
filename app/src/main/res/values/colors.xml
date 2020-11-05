@@ -7,4 +7,15 @@
 
     <color name="c_f9f9f9">#F9F9F9</color>
     <color name="white">#FFFFFF</color>
+
+    <color name="transparent">#00ffffff</color>
+    <color name="tag_blue">#63b4ff</color>
+    <color name="v2_forum_tab_indicator_color">@color/tag_blue</color>
+    <color name="v2_forum_tab_sub_title_color">@color/v2_forum_tab_text_unselected</color>
+    <color name="v2_forum_tab_text_unselected">#ffaeaeae</color>
+    <color name="v2_forum_tab_title_color">@color/tag_blue</color>
+    <color name="v2_forum_top_small_tag_text_color">@color/white</color>
+    <color name="v2_home_app_bar_tab_indicator">@color/tag_blue</color>
+    <color name="v2_home_status_bar_color">@color/primary_color</color>
+    <color name="v2_common_bg_card_color">@color/primary_color</color>
 </resources>

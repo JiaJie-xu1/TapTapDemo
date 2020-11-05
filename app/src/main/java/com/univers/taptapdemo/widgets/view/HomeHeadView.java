@@ -12,7 +12,7 @@ import com.univers.taptapdemo.R;
 
 
 public class HomeHeadView extends FrameLayout {
-
+    private HomeTabLayout tabLayout;
     public HomeHeadView(@NonNull Context context) {
         super(context);
         init();
@@ -29,8 +29,8 @@ public class HomeHeadView extends FrameLayout {
     }
 
     private void init() {
-        inflate(getContext(), R.layout.recommend_rec_head, this);
-
+        inflate(getContext(), R.layout.layout_home_head, this);
+        tabLayout = findViewById(R.id.homeTabLayout);
     }
 
     @Override
