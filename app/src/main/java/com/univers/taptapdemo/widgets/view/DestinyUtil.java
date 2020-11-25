@@ -6,6 +6,8 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.util.TypedValue;
 
+import com.univers.taptapdemo.MyApplication;
+
 public class DestinyUtil {
 
     public static int dip2px(Context context, float f) {
@@ -30,8 +32,8 @@ public class DestinyUtil {
         return dimension;
     }
 
-    public static int getDps(Context context,int i) {
-        return context.getResources().getDimensionPixelSize(i);
+    public static int getDps(int i) {
+        return MyApplication.context.getResources().getDimensionPixelSize(i);
     }
 
     public static int getStatusBarHeight(Context context) {

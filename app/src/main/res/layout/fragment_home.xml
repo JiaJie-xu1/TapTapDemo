@@ -5,10 +5,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+        android:id="@+id/appBarLayoutShade"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="0dp" />
+        app:elevation="0dp"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$Behavior"/>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
@@ -18,6 +19,7 @@
 
 
     <RelativeLayout
+        android:id="@+id/rlToolBarContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

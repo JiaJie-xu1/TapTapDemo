@@ -9,8 +9,10 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Build;
+
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,27 +30,34 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.univers.taptapdemo.R;
 
+import java.util.Arrays;
 import java.util.List;
 
-public class HomeTabLayout extends HorizontalScrollView implements ITabLayout{
-    private static final Interpolator inInterpolator = new FastOutSlowInInterpolator();
-
-    public float tv2Size;
-    public boolean mText1Bold;
+public class HomeTabLayout extends HorizontalScrollView implements ITabLayout {
+    private static final Interpolator a = new FastOutSlowInInterpolator();
+    private static final long b = 200;
+    /* access modifiers changed from: private */
+    public float A;
+    /* access modifiers changed from: private */
+    public boolean B;
+    /* access modifiers changed from: private */
     public boolean C;
+    /* access modifiers changed from: private */
     public boolean D;
+    /* access modifiers changed from: private */
     public boolean E;
     private boolean F;
     private RectF G;
     private Paint H;
     private Paint I;
     private Rect J;
+    /* access modifiers changed from: private */
     public ViewPager K;
     private List<String> L;
     private SimpleArrayMap<Integer, String> M;
     /* access modifiers changed from: private */
     public LinearLayout N;
-    private ValueAnimator valueAnimator;
+    private ValueAnimator O;
     private PageChangeListener P;
     /* access modifiers changed from: private */
     public OnItemClickListener listener;
@@ -97,42 +106,47 @@ public class HomeTabLayout extends HorizontalScrollView implements ITabLayout{
     public float textView1Size;
     /* access modifiers changed from: private */
     public float z;
-    public HomeTabLayout(Context context) {
-        super(context);
+
+    public interface OnItemClickListener {
+        void a(View view, int i, int i2);
     }
 
-    public HomeTabLayout(Context context, AttributeSet attrs) {
-        super(context, attrs);
+    public HomeTabLayout(Context context) {
+        this(context, null);
+    }
+
+    public HomeTabLayout(Context context, AttributeSet attributeSet) {
+        this(context, attributeSet, 0);
     }
 
     @SuppressLint("ResourceType")
-    public HomeTabLayout(Context context, AttributeSet attributeSet, int defStyleAttr) {
-        super(context, attributeSet, defStyleAttr);
+    public HomeTabLayout(Context context, AttributeSet attributeSet, int i2) {
+        super(context, attributeSet, i2);
         this.o = 0;
         this.p = 0;
         this.F = true;
         this.S = true;
-        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.ForumTabLayout, defStyleAttr, 0);
-        this.h = obtainStyledAttributes.getDimensionPixelSize(12, DestinyUtil.getDps(context,(int) R.dimen.dp24));
-        this.k = obtainStyledAttributes.getDimensionPixelSize(11, DestinyUtil.getDps(context,(int) R.dimen.dp3));
-        this.textView1Size = (float) obtainStyledAttributes.getDimensionPixelSize(18, DestinyUtil.getDps(context,(int) R.dimen.sp16));
-        this.x = (float) obtainStyledAttributes.getDimensionPixelSize(14, DestinyUtil.getDps(context,(int) R.dimen.sp16));
-        this.tv2Size = (float) obtainStyledAttributes.getDimensionPixelSize(4, DestinyUtil.getDps(context,(int) R.dimen.sp11));
-        this.z = (float) obtainStyledAttributes.getDimensionPixelSize(8, DestinyUtil.getDps(context,(int) R.dimen.sp12));
+        TypedArray obtainStyledAttributes = context.obtainStyledAttributes(attributeSet, R.styleable.ForumTabLayout, i2, 0);
+        this.h = obtainStyledAttributes.getDimensionPixelSize(12, DestinyUtil.getDps((int) R.dimen.dp24));
+        this.k = obtainStyledAttributes.getDimensionPixelSize(11, DestinyUtil.getDps((int) R.dimen.dp3));
+        this.textView1Size = (float) obtainStyledAttributes.getDimensionPixelSize(18, DestinyUtil.getDps((int) R.dimen.sp16));
+        this.x = (float) obtainStyledAttributes.getDimensionPixelSize(14, DestinyUtil.getDps((int) R.dimen.sp16));
+        this.A = (float) obtainStyledAttributes.getDimensionPixelSize(4, DestinyUtil.getDps((int) R.dimen.sp11));
+        this.z = (float) obtainStyledAttributes.getDimensionPixelSize(8, DestinyUtil.getDps((int) R.dimen.sp12));
         this.v = (float) obtainStyledAttributes.getDimensionPixelSize(20, 1);
         this.i = obtainStyledAttributes.getDimensionPixelSize(0, DestinyUtil.dip2px(getContext(), 1.5f));
-        this.s = obtainStyledAttributes.getDimensionPixelSize(1, DestinyUtil.getDps(context,(int) R.dimen.dp30));
+        this.s = obtainStyledAttributes.getDimensionPixelSize(1, DestinyUtil.getDps((int) R.dimen.dp30));
         this.tab_sub_title_color = obtainStyledAttributes.getColor(17, context.getResources().getColor(R.color.v2_forum_tab_sub_title_color));
         this.tab_title_color = obtainStyledAttributes.getColor(13, context.getResources().getColor(R.color.v2_forum_tab_title_color));
         this.tab_sub_title2_color = obtainStyledAttributes.getColor(7, context.getResources().getColor(R.color.v2_forum_tab_sub_title_color));
         this.tab_title2_color = obtainStyledAttributes.getColor(3, context.getResources().getColor(R.color.v2_forum_tab_title_color));
         this.j = obtainStyledAttributes.getColor(10, context.getResources().getColor(R.color.v2_home_app_bar_tab_indicator));
         this.n = obtainStyledAttributes.getColor(19, context.getResources().getColor(R.color.transparent));
-        this.mText1Bold = obtainStyledAttributes.getBoolean(16, false);
+        this.B = obtainStyledAttributes.getBoolean(16, false);
         this.C = obtainStyledAttributes.getBoolean(15, true);
         this.E = obtainStyledAttributes.getBoolean(5, false);
         this.D = obtainStyledAttributes.getBoolean(6, false);
-        this.t = obtainStyledAttributes.getDimensionPixelSize(2, DestinyUtil.getDps(context,(int) R.dimen.dp5));
+        this.t = obtainStyledAttributes.getDimensionPixelSize(2, DestinyUtil.getDps((int) R.dimen.dp5));
         this.f212u = obtainStyledAttributes.getDimensionPixelSize(9, 0);
         obtainStyledAttributes.recycle();
         b();
@@ -150,7 +164,6 @@ public class HomeTabLayout extends HorizontalScrollView implements ITabLayout{
         addView(this.N, 0, new FrameLayout.LayoutParams(-1, -1));
     }
 
-    @Override
     public void setupTabs(ViewPager viewPager) {
         if (viewPager != null) {
             this.K = viewPager;
@@ -192,6 +205,17 @@ public class HomeTabLayout extends HorizontalScrollView implements ITabLayout{
         }
     }
 
+    public void setupTabs(String[] strArr) {
+        a(Arrays.asList(strArr));
+        setupTabs();
+    }
+
+    public void setupTabs(String[] strArr, boolean z2) {
+        this.show = !z2;
+        a(Arrays.asList(strArr));
+        setupTabs();
+    }
+
     TabView tabView1;
     TabView tabView2;
     private void setTabView(final int i2, String str, String str2) {
@@ -214,7 +238,7 @@ public class HomeTabLayout extends HorizontalScrollView implements ITabLayout{
                     HomeTabLayout.this.K.setCurrentItem(i2, true);
                 }
                 if (HomeTabLayout.this.listener != null) {
-                    HomeTabLayout.this.listener.onClick(view, i2, HomeTabLayout.this.g);
+                    HomeTabLayout.this.listener.a(view, i2, HomeTabLayout.this.g);
                 }
             }
         });
@@ -228,6 +252,7 @@ public class HomeTabLayout extends HorizontalScrollView implements ITabLayout{
         return this.tabView2;
     }
 
+    /* access modifiers changed from: private */
     public void p(int i2) {
         for (int i3 = 0; i3 < this.N.getChildCount(); i3++) {
             if (i2 == i3) {
@@ -258,6 +283,7 @@ public class HomeTabLayout extends HorizontalScrollView implements ITabLayout{
         }
     }
 
+    /* access modifiers changed from: protected */
     public void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         ViewPager viewPager = this.K;
@@ -267,6 +293,7 @@ public class HomeTabLayout extends HorizontalScrollView implements ITabLayout{
         }
     }
 
+    /* access modifiers changed from: private */
     public void q(int i2) {
         if (this.N.getChildCount() >= 1) {
             scrollTo(r(i2), i2);
@@ -310,6 +337,7 @@ public class HomeTabLayout extends HorizontalScrollView implements ITabLayout{
         return a(i2, !z2);
     }
 
+    /* access modifiers changed from: private */
     public void setIndicatorStart(int i2) {
         this.l = i2;
         if (Build.VERSION.SDK_INT >= 16) {
@@ -317,6 +345,7 @@ public class HomeTabLayout extends HorizontalScrollView implements ITabLayout{
         }
     }
 
+    /* access modifiers changed from: private */
     public void setIndicatorEnd(int i2) {
         this.m = i2;
         if (Build.VERSION.SDK_INT >= 16) {
@@ -329,16 +358,16 @@ public class HomeTabLayout extends HorizontalScrollView implements ITabLayout{
     }
 
     private void setValueAnimator(int i2, long j2) {
-        if (this.valueAnimator == null) {
-            this.valueAnimator = new ValueAnimator();
+        if (this.O == null) {
+            this.O = new ValueAnimator();
         }
-        if (this.valueAnimator.isRunning()) {
-            this.valueAnimator.cancel();
+        if (this.O.isRunning()) {
+            this.O.cancel();
         }
-        this.valueAnimator.setInterpolator(inInterpolator);
-        this.valueAnimator.setDuration(j2);
-        this.valueAnimator.setIntValues(a(this.g, false), a(i2, false));
-        this.valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+        this.O.setInterpolator(a);
+        this.O.setDuration(j2);
+        this.O.setIntValues(a(this.g, false), a(i2, false));
+        this.O.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             /* class com.play.taptap.ui.home.v3.HomeTabLayout.AnonymousClass3 */
 
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
@@ -346,9 +375,10 @@ public class HomeTabLayout extends HorizontalScrollView implements ITabLayout{
                 HomeTabLayout.this.setIndicatorEnd(((Integer) valueAnimator.getAnimatedValue()).intValue() + HomeTabLayout.this.h);
             }
         });
-        this.valueAnimator.start();
+        this.O.start();
     }
 
+    /* access modifiers changed from: protected */
     public void onMeasure(int i2, int i3) {
         int i4;
         super.onMeasure(i2, i3);
@@ -572,7 +602,7 @@ public class HomeTabLayout extends HorizontalScrollView implements ITabLayout{
             }
             this.textView1.setTextColor(HomeTabLayout.this.tab_sub_title_color);
             this.textView1.setTextSize(0, HomeTabLayout.this.textView1Size);
-            if (HomeTabLayout.this.mText1Bold) {
+            if (HomeTabLayout.this.B) {
                 this.textView1.getPaint().setFakeBoldText(true);
             } else {
                 this.textView1.getPaint().setFakeBoldText(false);
@@ -596,7 +626,7 @@ public class HomeTabLayout extends HorizontalScrollView implements ITabLayout{
                 }
             } else {
                 textView.setTextColor(HomeTabLayout.this.tab_sub_title2_color);
-                this.textView2.setTextSize(0, HomeTabLayout.this.tv2Size);
+                this.textView2.setTextSize(0, HomeTabLayout.this.A);
                 if (HomeTabLayout.this.D) {
                     this.textView2.getPaint().setFakeBoldText(true);
                 } else {
@@ -635,13 +665,113 @@ public class HomeTabLayout extends HorizontalScrollView implements ITabLayout{
         return this.N.getChildCount();
     }
 
-    public HomeTabLayout setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.listener = onItemClickListener;
+    public HomeTabLayout b(List<String> list) {
+        if (this.M == null) {
+            this.M = new SimpleArrayMap<>();
+        }
+        for (int i2 = 0; i2 < list.size(); i2++) {
+            this.M.put(Integer.valueOf(i2), list.get(i2));
+        }
+        if (!this.F && !list.isEmpty()) {
+            for (int i3 = 0; i3 < this.N.getChildCount(); i3++) {
+                ((TabView) this.N.getChildAt(i3)).b(list.get(i3));
+            }
+        }
+        this.F = true;
         return this;
     }
 
-    public interface OnItemClickListener {
-        void onClick(View view, int i, int i2);
+    public HomeTabLayout a(int i2) {
+        this.q = i2;
+        return this;
     }
 
+    public HomeTabLayout b(int i2) {
+        this.h = i2;
+        return this;
+    }
+
+    public HomeTabLayout c(int i2) {
+        this.k = i2;
+        return this;
+    }
+
+    public HomeTabLayout setAppBarTabIndicatorColor(int i2) {
+        this.j = i2;
+        return this;
+    }
+
+    public HomeTabLayout setTabTitleColor(int i2) {
+        this.tab_title_color = i2;
+        return this;
+    }
+
+    public HomeTabLayout setTabSubTitleColor(int i2) {
+        this.tab_sub_title_color = i2;
+        return this;
+    }
+
+    public HomeTabLayout g(int i2) {
+        this.x = (float) i2;
+        return this;
+    }
+
+    public HomeTabLayout h(int i2) {
+        this.textView1Size = (float) i2;
+        return this;
+    }
+
+    public HomeTabLayout setTabTitle2Color(int i2) {
+        this.tab_title2_color = i2;
+        return this;
+    }
+
+    public HomeTabLayout setTabSubTitle2Color(int i2) {
+        this.tab_sub_title2_color = i2;
+        return this;
+    }
+
+    public HomeTabLayout k(int i2) {
+        this.z = (float) i2;
+        return this;
+    }
+
+    public HomeTabLayout l(int i2) {
+        this.A = (float) i2;
+        return this;
+    }
+
+    public HomeTabLayout m(int i2) {
+        this.n = i2;
+        return this;
+    }
+
+    public HomeTabLayout n(int i2) {
+        this.t = i2;
+        return this;
+    }
+
+    public HomeTabLayout o(int i2) {
+        this.f212u = i2;
+        return this;
+    }
+
+    public HomeTabLayout a(boolean z2) {
+        this.E = z2;
+        return this;
+    }
+
+    public HomeTabLayout b(boolean z2) {
+        this.D = z2;
+        return this;
+    }
+
+    public void setOpenFollowScroll(boolean z2) {
+        this.S = z2;
+    }
+
+    public HomeTabLayout a(OnItemClickListener onItemClickListener) {
+        this.listener = onItemClickListener;
+        return this;
+    }
 }

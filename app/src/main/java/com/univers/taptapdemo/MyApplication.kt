@@ -11,6 +11,7 @@ import com.partner.tabtools.verticalTab.DisplayUtil
 class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
+        context = this
         MultiDex.install(this)
 
         val windowManager =
@@ -21,6 +22,10 @@ class MyApplication : Application() {
             DisplayUtil.SCREEN_INFO = DisplayMetrics()
             windowManager.defaultDisplay.getMetrics(DisplayUtil.SCREEN_INFO)
         }
+    }
+
+    companion object {
+        lateinit var context: Context
     }
 }
 fun showToast(context: Context,info: String?) {

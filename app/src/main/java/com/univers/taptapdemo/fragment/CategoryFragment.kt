@@ -37,6 +37,9 @@ class CategoryFragment : Fragment() {
     }
 
     private fun initView() {
+
+        (parentFragment as HomeFragment).setExpend(false)
+
         //个人建议使用pt适配
         (rlTitle.layoutParams as MarginLayoutParams).leftMargin = DisplayUtil.getSR(20)
         (rlTitle.layoutParams as MarginLayoutParams).topMargin = DisplayUtil.getSR(23)
